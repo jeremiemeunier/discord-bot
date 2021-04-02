@@ -46,6 +46,7 @@ client.registry
         ['bot', 'Bot'],
         ['events', 'Events'],
         ['support', 'Support'],
+        ['audio', 'Audio'],
     ])
     .registerCommandsIn(path.join(__dirname, 'commands'))
 ;
