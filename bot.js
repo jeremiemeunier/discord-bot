@@ -14,7 +14,7 @@ const client = new CommandoClient({
     disableMentions: 'everyone',
     presence: {
       activity: {
-        name: 'la baballe | !help',
+        name: 'réparer l\'humanité | !help',
         type: 'PLAYING'
       }
     }
