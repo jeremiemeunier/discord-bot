@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const dotenv = require('dotenv');
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-const debug = false; // set at TRUE for console.log most important states
+const debug = false; // set as TRUE for console.log most important states
 
 const envConfig = dotenv.parse(fs.readFileSync('./.env'))
 for (const k in envConfig) {
