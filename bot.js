@@ -14,8 +14,8 @@ const client = new CommandoClient({
     disableMentions: 'everyone',
     presence: {
       activity: {
-        name: 'réparer l\'humanité | !help',
-        type: 'PLAYING'
+        name: 'son maître | v0.1 | !help',
+        type: 'LISTENING'
       }
     }
 });
