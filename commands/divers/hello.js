@@ -12,8 +12,8 @@ module.exports = class HelloCommand extends Command {
             userPermissions: ['ADMINISTRATOR'],
 	        guildOnly: true,
 	        throttling: {
-	                usages: 2,
-	                duration: 10,
+	            usages: 2,
+	            duration: 10,
 	        },
 		});
 	}
