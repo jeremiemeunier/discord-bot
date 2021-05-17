@@ -16,7 +16,7 @@ var client = new Discord.Client();
 client.on('ready', () => {
 	console.log(`[Logged in as \x1b[44m\x1b[30m${client.user.tag}\x1b[0m]`);
 	discordBotLive();
-	console.log(`[\x1b[44m\x1b[30m${client.user.tag}\x1b[0m as ending his work]`)
+	console.log(`[\x1b[44m\x1b[30m${client.user.tag}\x1b[0m as ending his work]`);
 });
 
 function discordBotLive() {
@@ -29,7 +29,7 @@ function discordBotLive() {
 	}
 }
 function xhrCheck(xhr) {
-	if(debug == true) { console.log('DEBUG : \x1b[43m\x1b[30mCHECK [(STATE : '+ xhr.readyState +')(STATUS : '+ xhr.status +')]\x1b[0m'); }
+	if(debug == true) { console.log('DEBUG : \x1b[43m\x1b[30mCHECK [(STATE : '+ xhr.readyState +')(STATUS : '+ xhr.status +')]\x1b[0m '); }
 	if(xhr.readyState === 4 && xhr.status === 200) { return true; }
 	else { return false; }
 }
