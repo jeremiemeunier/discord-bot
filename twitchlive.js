@@ -18,8 +18,9 @@ else { console.log('\x1b[43m\x1b[30m ### DEBUG IS DISABLED ### \x1b[0m '); }
 var client = new Discord.Client();
 
 function discordBotLive() {
-	var dataUsers = [{"discord_id":"165806292840087552","discord_name":"DarkBichon","twitch_id":"127396424","twitch_name":"dark_bichon"},{"discord_id":"222776756870971393","discord_name":"WyZzeur","twitch_id":"39928727","twitch_name":"WyZzeur"},{"discord_id":"105263001388507136","discord_name":"Leha","twitch_id":"73474297","twitch_name":"Leha83"},{"discord_id":"223352044730318859","discord_name":"Nekzq.","twitch_id":"601540513","twitch_name":"nekzq"}];
-	var dataLenght = dataUsers.length;
+	var JsonUsers = fs.readFileSync('live_config.json');
+	var dataUsers = JSON.parse(JsonUsers);
+	var dataLenght = Object.keys(dataUsers).length;
 
 	for(var i = 0; i < dataLenght; i++) {
 		let data = dataUsers[i];
@@ -34,7 +35,7 @@ function xhrCheck(xhr) {
 
 function isonliveid(data) {
 	let server = client.guilds.cache.get(process.env.GUILD_ID);
-	let announce = client.channels.cache.get(process.env.ANNOUNCE_CHANNEL)
+	let announce = client.channels.cache.find(channel => channel.id === process.env.ANNOUNCE_CHANNEL)
 	let logs = client.channels.cache.get(process.env.LOGS_CHANNEL)
 	
 	let twitchData = new XMLHttpRequest();
