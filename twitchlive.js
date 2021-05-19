@@ -98,7 +98,7 @@ client.on('ready', () => {
 	console.log(`[Logged in as \x1b[44m\x1b[30m${client.user.tag}\x1b[0m]`);
 	console.log(`[\x1b[44m\x1b[30m${client.user.tag}\x1b[0m as now starting 5 minutes countdown]`);
 
-	if(wait === true) {
+	if(wait == true) {
 		setInterval(function() {
 			console.log(`[\x1b[44m\x1b[30m${client.user.tag}\x1b[0m as waiting 5 minutes]`);
 			console.log(`[\x1b[44m\x1b[30m${client.user.tag}\x1b[0m as starting his work]`);
