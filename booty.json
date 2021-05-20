@@ -1,0 +1,10 @@
+{
+    "countdown": "300000",
+    "version": "v0.3",
+    "debug": false,
+    "waiting": true,
+    "channel": {
+        "debug": "logs",
+        "announce": "annonces"
+    }
+}
