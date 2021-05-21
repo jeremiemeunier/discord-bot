@@ -38,18 +38,18 @@ function discordBotLive() {
 }
 function xhrCheck(xhr) {
 	if(booty_settings.debug == true) {
-		console.log(`\x1b[32m bootyJS[${booty_settings.version}] \x1b[0m\x1b[43m\x1b[30m ### DEBUG : CHECK [(STATE : ${xhr.readyState})(STATUS : ${xhr.status})] ### \x1b[0m `);
+		console.log(`${bootyLog}\x1b[43m\x1b[30m ### DEBUG : CHECK [(STATE : ${xhr.readyState})(STATUS : ${xhr.status})] ### \x1b[0m `);
 	}
 	if(xhr.readyState === 4 && xhr.status === 200) { return true; }
 	else { return false; }
 }
 
 function dateReturn(ajd) {
-	let ret;
+	let ret = '';
 
 	if(ajd.getHours() < 10) { ret += `0${ajd.getHours()}:`; } else { ret += `${ajd.getHours()}:`; }
 	if(ajd.getMinutes() < 10) { ret += `0${ajd.getMinutes()}:`; } else { ret += `${ajd.getMinutes()}:`; }
-	if(ajd.getSeconds() < 10) { ret += `0${ajd.getSeconds()}:`; } else { ret += `${ajd.getSeconds()}:`; }
+	if(ajd.getSeconds() < 10) { ret += `0${ajd.getSeconds()}:`; } else { ret += `${ajd.getSeconds()}`; }
 
 	return ret;
 }
@@ -96,7 +96,7 @@ function isonliveid(data) {
 								announce.send(`Hey <@${every.id}> ! <@${data.discord_id}> est actuellement en live sur https://twitch.tv/${data.twitch_name} il stream **${twitchResponse.title}** sur ${twitchResponse.game_name}`);
 							}
 						}
-						else { console.log(`\x1b[32m bootyJS[${version}] ${dateReturn(dateajd)} \x1b[0mPas de message`); }
+						else { console.log(`\x1b[32m bootyJS[${booty_settingsversion}] ${dateReturn(dateajd)} \x1b[0mPas de message`); }
                     }
                     else {
 						if(booty_settings.debug == true) {
@@ -121,6 +121,7 @@ client.on('ready', () => {
 		console.log(`${bootyLog} as now starting countdown`);
 	}
 	else { console.log(`${bootyLog} is to exited to wait`); }
+	console.log(`${bootyLog} is initialized at \x1b[34m${dateReturn(new Date())}\x1b[0m`);
 	console.log(`\x1b[42m\x1b[30m ### booty JS  [${booty_settings.version}] STARTING ### \x1b[0m `);
 	
 	if(booty_settings.waiting == true) {
