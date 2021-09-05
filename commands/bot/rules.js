@@ -14,8 +14,8 @@ module.exports = class ReplyCommand extends Command {
 		});
 	}
 
-	async run(msg, text) {
-        var txt = "comme un rappel ne fait pas de mal : <#882582553071079485>";
-        msg.reply(txt);
+	async run(msg, args) {
+        var txt = `${args}, comme un rappel ne fait pas de mal : <#882582553071079485>`;
+        msg.say(txt);
 	}
 };

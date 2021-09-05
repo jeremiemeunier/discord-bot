@@ -27,7 +27,7 @@ module.exports = class ReplyCommand extends Command {
             txt += `${data.twitch_name.toString()} — https://www.twitch.tv/${data.twitch_name.toString()} \r\n`;
         }
 
-        txt += "\r\nTu veux savoir quand est-ce qu'il stream ? \r\nRend toi dans <#882582553071079490> et utilise la commande `!role notifs`";
+        txt += "\r\nTu veux savoir quand est-ce qu'il stream ? \r\nRend toi dans <#882582553071079490> et utilise la commande `!role list` pour t'ajouter le rôle";
 
         msg.say(txt);
 	}
