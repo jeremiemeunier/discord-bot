@@ -1,2 +1,4 @@
 .env
 live_config.json
+streamer.json
+data
