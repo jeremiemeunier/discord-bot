@@ -14,8 +14,8 @@ const client = new CommandoClient({
     disableMentions: 'everyone',
     presence: {
       activity: {
-        name: 'sa plaquette — !help',
-        type: 'WATCHING'
+        name: 'Le Jeu de la vie',
+        type: 'PLAYING'
       }
     }
 });
