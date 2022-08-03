@@ -83,17 +83,6 @@ function boot() {
 
 	logger(`is initialized at \x1b[34m${dateReturn(new Date())}\x1b[0m`, false);
 	logger(`\x1b[42m\x1b[30m discord_bot [${booty_settings.version}] INITIALIZED \x1b[0m `, false);
-	
-	if(booty_settings.waiting == true) {
-		setInterval(function() {
-			logger(`as waiting \x1b[34m${booty_settings.countdown}ms\x1b[0m`);
-			logger(`as starting his work`);
-			discordBotLive({"announce":announce,"debug":debug,"every":every});
-			logger(`as ending his work`);
-			logger(`as now starting countdown`);
-		}, booty_settings.countdown);
-	}
-	else { discordBotLive({"announce":announce,"debug":debug,"every":every}); }
 }
 
 client.on('messageCreate', msg=> {
@@ -101,33 +90,44 @@ client.on('messageCreate', msg=> {
   else {
     if(msg.content.startsWith("!")) {
       // switch commands
-      msg.content.split();
-      if() {
+      args = msg.content.split(" ");
+      if(args[0] === '!role') {
         var JsonRole = fs.readFileSync('data/roles.json');
         var dataRole = JSON.parse(JsonRole);
         var dataLenght = Object.keys(dataRole).length;
 
-        if(args != '') {
-          if(args === 'list') {
+        if(args[1] != '') {
+          if(args[1] === 'list') {
             let txt = "Voici la liste des rôles disponibles :```";
             for(var i = 0; i < dataLenght; i++) {
               let data = dataRole[i];
               txt += `${i} — ${data.role_name.toString()} (${data.role_desc.toString()})\r\n`;
             }
             
-            txt += "``` Pour t'ajouter un rôle utilise la commande `!role 1`";
-            msg.say(txt);
+            txt += "``` Pour t'ajouter un rôle utilise la commande `!role add 1` et pour le retirer `!role remove 1`";
+            msg.reply(txt);
           }
-          else {
-            if(args <= dataLenght) {
-              let role = msg.guild.roles.cache.find(role => role.name === dataRole[args].role_name);
+          else if(args[1] == 'remove') {
+            if(args[2] <= dataLenght) {
+              let role = msg.guild.roles.cache.find(role => role.name === dataRole[args[2]].role_name);
+              let author = msg.member;
+              author.roles.remove(role);
+              msg.reply(`Je t'ai bien retirer le rôle **${dataRole[args[2]].role_name}** !`);
+            } else { msg.reply("Ce rôle n'est pas disponible essais avec ceux de la liste : `!role list`"); }
+          }
+          else if(args[1] == 'add') {
+            if(args[2] <= dataLenght) {
+              let role = msg.guild.roles.cache.find(role => role.name === dataRole[args[2]].role_name);
               let author = msg.member;
               author.roles.add(role);
-              msg.reply(`je t'ai bien ajouter le rôle **${dataRole[args].role_name}** profites en bien !`);
+              msg.reply(`Je t'ai bien ajouter le rôle **${dataRole[args[2]].role_name}** profites en bien !`);
             } else { msg.reply("Ce rôle n'est pas disponible essais avec ceux de la liste : `!role list`"); }
           }
         }
-        else { msg.reply('tu dois indiquer un nom de rôle par exemple : `!role 1` pour les connaîtres : `!role list`'); }
+        else { msg.reply('Tu dois indiquer un nom de rôle par exemple : `!role add 1` pour les connaîtres : `!role list` si tu veux te retirer un rôle fait `!role remove 1`'); }
+      }
+      else {
+        // nouvelle commande
       }
     }
   }
