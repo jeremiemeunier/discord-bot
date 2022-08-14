@@ -1,11 +1,13 @@
-const { Client, Intents, MessageEmbed } = require('discord.js');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-
 const fs = require('fs');
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 let booty_settings = JSON.parse(fs.readFileSync('data/discord_bot.json'));
 let secret_settings = JSON.parse(fs.readFileSync('data/secret.json'));
+
+const { Client, GatewayIntentBits, MessageEmbed } = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
+
 
 function logger(txt, timed = true) {
 	let logs_tag = `\x1b[32mdiscord_bot[${booty_settings.version}]`;
@@ -92,11 +94,18 @@ client.on('messageCreate', msg=> {
       // switch commands
       args = msg.content.split(" ");
       if(args[0] === '!role') {
-        var JsonRole = fs.readFileSync('data/roles.json');
+        var JsonRole = fs.readFileSync('data/roles/generics.json');
+        var JsonRoleNotifs = fs.readFileSync('data/roles/notifs.json');
         var dataRole = JSON.parse(JsonRole);
+        var dataRoleNotifs = JSON.parse(JsonRoleNotifs);
         var dataLenght = Object.keys(dataRole).length;
+        var dataLenghtNotifs = Object.keys(dataRoleNotifs).length;
 
-        if(args[1] != '') {
+		const pastilleEmojie = msg.guild.emojis.cache.find(emoji => emoji.name === 'bichon_pastille');
+
+		// msg.react(pastilleEmojie);
+
+        if(args[1] != '' || args[1] == null) {
           if(args[1] === 'list') {
             let txt = "Voici la liste des rôles disponibles :```";
             for(var i = 0; i < dataLenght; i++) {
@@ -105,17 +114,17 @@ client.on('messageCreate', msg=> {
             }
             
             txt += "``` Pour t'ajouter un rôle utilise la commande `!role add 1` et pour le retirer `!role remove 1`";
-            msg.reply(txt);
+            msg.reply({ content:txt, fetchReply:true });
           }
-          else if(args[1] == 'remove') {
+          else if(args[1] === 'remove') {
             if(args[2] <= dataLenght) {
               let role = msg.guild.roles.cache.find(role => role.name === dataRole[args[2]].role_name);
               let author = msg.member;
               author.roles.remove(role);
-              msg.reply(`Je t'ai bien retirer le rôle **${dataRole[args[2]].role_name}** !`);
+              msg.reply({ content:`Je t'ai bien retirer le rôle **${dataRole[args[2]].role_name}** !`, fetchReplay:true});
             } else { msg.reply("Ce rôle n'est pas disponible essais avec ceux de la liste : `!role list`"); }
           }
-          else if(args[1] == 'add') {
+          else if(args[1] === 'add') {
             if(args[2] <= dataLenght) {
               let role = msg.guild.roles.cache.find(role => role.name === dataRole[args[2]].role_name);
               let author = msg.member;
@@ -123,8 +132,15 @@ client.on('messageCreate', msg=> {
               msg.reply(`Je t'ai bien ajouter le rôle **${dataRole[args[2]].role_name}** profites en bien !`);
             } else { msg.reply("Ce rôle n'est pas disponible essais avec ceux de la liste : `!role list`"); }
           }
+		  else if(args[1] === 'notifs') {
+			let txt = "Voici la liste des rôles disponibles :```";
+            for(var i = 0; i < dataLenghtNotifs; i++) {
+              let data = dataRoleNotifs[i];
+              txt += `${i} — ${data.role_name.toString()} (${data.role_desc.toString()})\r\n`;
+            }
+		  }
         }
-        else { msg.reply('Tu dois indiquer un nom de rôle par exemple : `!role add 1` pour les connaîtres : `!role list` si tu veux te retirer un rôle fait `!role remove 1`'); }
+        else { msg.reply('Tu dois indiquer un nom de rôle par exemple : `!role add 1` pour les connaîtres : `!role list` ou `!role notifs` selon les notifications que tu souhaite recevoir. Si tu veux te retirer un rôle fait `!role remove 1`'); }
       }
       else {
         // nouvelle commande
@@ -133,5 +149,5 @@ client.on('messageCreate', msg=> {
   }
 })
 
-client.on('ready', () => { boot(); });
+client.on('ready', () => { /*boot();*/ });
 client.login(secret_settings.BOT_TOKEN);
