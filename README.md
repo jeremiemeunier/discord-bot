@@ -1,5 +1,7 @@
 # discord-bot
 
+### Warning ! All of developement has been transfered to [pastille-bot](https://github.com/jeremiemeunier/pastille-bot).
+
 ## live_config.json
 
 ```json
