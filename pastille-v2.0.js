@@ -15,7 +15,7 @@ client.on('interactionCreate', async interaction => {
     await interaction.reply({ content:'Tu dois indiquer un nom de rôle par exemple : `/role add 1` pour les connaîtres : `/role list` ou `/role notifs` selon les notifications que tu souhaite recevoir. Si tu veux te retirer un rôle fait `/role remove 1`', fetchReplay:true });
   }
   else if(interaction.commandName === 'poll') {
-    let questionValue = "<:bichon_poll:1005074664005062727> " + interaction.options.getString("question");
+    let questionValue = `${interaction.guild.emojis.cache.find(emoji => emoji.name === 'bichon_poll')} **${interaction.options.getString("question")}**`;
     let responseOptions = interaction.options.getString("response").split(';');
     let responseLenght = Object.keys(responseOptions).length;
     let aswerText = "";
